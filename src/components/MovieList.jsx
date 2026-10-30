@@ -1,22 +1,11 @@
 import MovieCard from './MovieCard';
 
-function MovieList({ movies, favorites, onToggleFavorite, onSelect }) {
+function MovieList({ movies, favorites, watchlist, watchedIds, onToggleFavorite, onToggleWatchlist, onSelect }) {
+  if (!movies.length) return null;
+
   return (
     <div className="movie-list">
-      {movies.map((movie, index) => (
-        <div
-          key={movie.imdbID}
-          className="movie-card-wrapper"
-          style={{ animationDelay: `${index * 0.06}s` }}
-        >
-          <MovieCard
-            movie={movie}
-            isFavorite={favorites.some((f) => f.imdbID === movie.imdbID)}
-            onToggleFavorite={onToggleFavorite}
-            onSelect={onSelect}
-          />
-        </div>
-      ))}
+      {movies.map((movie) => <MovieCard key={movie.imdbID} movie={movie} isFavorite={favorites.some((item) => item.imdbID === movie.imdbID)} isInWatchlist={watchlist.some((item) => item.imdbID === movie.imdbID)} isWatched={watchedIds.includes(movie.imdbID)} onToggleFavorite={onToggleFavorite} onToggleWatchlist={onToggleWatchlist} onSelect={onSelect} />)}
     </div>
   );
 }

@@ -1,16 +1,64 @@
-# React + Vite
+# Screen Search
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplikasi katalog film dan serial responsif yang membantu pengguna menemukan tontonan, melihat detail, dan mengelola daftar pribadi. Data film diambil dari [OMDb API](https://www.omdbapi.com/).
 
-Currently, two official plugins are available:
+## Fitur
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Pencarian film, serial, dan anime dengan hasil bertahap (pagination).
+- Kategori populer, Indonesia, Inggris, Jepang, Korea, dan anime.
+- Filter berdasarkan jenis serta pengurutan berdasarkan tahun, rating, atau judul.
+- Detail film, rating IMDb, genre, durasi, sutradara, pemeran, sinopsis, dan tautan pencarian trailer.
+- Halaman detail dengan URL `/movie/:imdbID`, tautan untuk memeriksa ketersediaan legal, dan catatan ulasan pribadi.
+- Favorit, watchlist, status sudah ditonton, dan riwayat pencarian yang tersimpan di browser.
+- Query pencarian tersimpan di URL agar hasil dapat dibagikan.
+- Loading skeleton, pesan error, fallback poster, dukungan keyboard, dan layout mobile.
 
-## React Compiler
+## Teknologi
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19
+- Vite
+- OMDb API
+- CSS responsif tanpa UI framework
 
-## Expanding the ESLint configuration
+## Menjalankan secara lokal
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Pastikan Node.js versi yang kompatibel dengan Vite terpasang.
+2. Instal dependency:
+
+   ```bash
+   npm install
+   ```
+
+3. Buat file `.env` di root project dan isi API key OMDb:
+
+   ```env
+   VITE_OMDB_KEY=api_key_anda
+   ```
+
+   Dapatkan key dari [omdbapi.com/apikey.aspx](https://www.omdbapi.com/apikey.aspx). Jangan commit file `.env`.
+
+4. Jalankan server pengembangan:
+
+   ```bash
+   npm run dev
+   ```
+
+5. Build untuk produksi:
+
+   ```bash
+   npm run build
+   npm run preview
+   ```
+
+## Catatan deployment
+
+Variabel `VITE_OMDB_KEY` dipakai pada aplikasi browser dan dapat terlihat oleh pengguna saat aplikasi dipublikasikan. Untuk penggunaan portofolio/demo, atur batas kuota API dan pantau key. Untuk aplikasi produksi, pindahkan panggilan OMDb ke fungsi serverless atau backend agar key tidak dikirim ke browser.
+
+Aplikasi memakai client-side routing untuk halaman detail `/movie/:imdbID`. Saat deploy ke static hosting, atur fallback/rewrite semua path aplikasi ke `index.html` agar membuka atau me-refresh URL detail tetap bekerja. Tautan JustWatch dan Google hanya membantu mencari pilihan legal; ketersediaan layanan dapat berbeda menurut wilayah dan waktu. Aplikasi tidak meng-host atau memutar film.
+
+## Ide pengembangan lanjutan
+
+- Ganti penyimpanan browser dengan akun dan sinkronisasi lintas perangkat.
+- Tambahkan filter genre, negara, dan rentang tahun menggunakan data detail.
+- Tambahkan pengujian komponen dan alur pencarian.
+- Tambahkan screenshot aplikasi dan tautan live demo pada bagian ini setelah deployment.
